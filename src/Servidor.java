@@ -100,23 +100,31 @@ class Servidor extends Thread {
                 for (int i = 0; i < numeroUsuarios; i++) {
                     alCliente.println(i + 1 + ") " + listadoUsuarios.get(i).getNombre());
                 }
-                alCliente.println("Seleccione el usuario a quien desea enviar el mensaje");
+                alCliente.println("Seleccione el usuario a quien desea enviar el mensaje:");
                 int idUsuario = Integer.parseInt(delCliente.readLine());
                 Usuario receptor = listadoUsuarios.get(idUsuario-1);
-                receptor.mensajes.add(new Mensaje(usuarioLogueado,receptor,"asd"));
-                System.out.println(listadoUsuarios.get(idUsuario-1).toString());
+                alCliente.println("Ingrese el mensaje:");
+                String mensaje = delCliente.readLine();
+                receptor.mensajes.add(new Mensaje(usuarioLogueado,receptor,mensaje));
+                alCliente.println("Mensaje enviado con exito:)");
+                break;
+            case "5":
+                int numeroMensajes = usuarioLogueado.mensajes.size();
+                alCliente.println(numeroMensajes);
+                if(numeroMensajes==0){
+                    alCliente.println("No existen mensajes :(");
+                }else{
+                    for (int i = 0; i < numeroMensajes; i++) {
+                        alCliente.println(i+1+") "+ usuarioLogueado.mensajes.get(i).toString());
+                    }
+                }
                 break;
             case "6":
                 listadoUsuarios.remove(usuarioLogueado);
                 alCliente.println("Usuario eliminado :)");
                 break;
-
-            case "7":
-                alCliente.println("chao");
-                break;
             default:
                 alCliente.println("error");
-
         }
     }
 

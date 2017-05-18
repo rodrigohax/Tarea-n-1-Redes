@@ -45,6 +45,6 @@ public class Mensaje {
 
     @Override
     public String toString() {
-        return "Emisor:\t" + emisor.getNombre() + "\tReceptor: " + receptor.getNombre() + "\tMensaje: " + mensaje;
+        return "Emisor: " + emisor.getNombre() + "\tReceptor: " + receptor.getNombre() + "\tMensaje: " + mensaje;
     }
 }

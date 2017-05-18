@@ -67,10 +67,34 @@ public class Cliente {
                     System.out.println(delServidor.readLine());
                 }
                 System.out.println(delServidor.readLine());
+/*
+                if (Integer.parseInt(mensaje) > numeroUsuarios) {
+                    System.out.println("Error");
+                    System.exit(0);
+                } */
+                do {
+                    mensaje = teclado.readLine();
+                } while (Integer.parseInt(mensaje) > numeroUsuarios);
+
+                alServidor.writeBytes(mensaje + "\n");
+
+                System.out.println(delServidor.readLine());
                 mensaje = teclado.readLine();
                 alServidor.writeBytes(mensaje + "\n");
                 System.out.println(delServidor.readLine());
                 break;
+            case "5":
+                int numeroMensajes = Integer.parseInt(delServidor.readLine());
+                if (numeroMensajes == 0) {
+                    System.out.println(delServidor.readLine());
+                } else {
+                    for (int i = 0; i < numeroMensajes; i++) {
+                        System.out.println(delServidor.readLine());
+                    }
+                }
+                break;
+            case "7":
+                System.exit(0);
             default:
                 mensajeServidor = delServidor.readLine();
                 System.out.println(mensajeServidor);
