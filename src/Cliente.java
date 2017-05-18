@@ -48,6 +48,10 @@ public class Cliente {
         alServidor.writeBytes(mensaje + "\n");
 
         /*
+            RECIBIR MENSAJE DE BIENVENIDA
+        */
+        System.out.println(delServidor.readLine());
+        /*
         *   LEER OPCIONES
          */
         recibirMenuOpciones(delServidor);
@@ -67,11 +71,6 @@ public class Cliente {
                     System.out.println(delServidor.readLine());
                 }
                 System.out.println(delServidor.readLine());
-/*
-                if (Integer.parseInt(mensaje) > numeroUsuarios) {
-                    System.out.println("Error");
-                    System.exit(0);
-                } */
                 do {
                     mensaje = teclado.readLine();
                 } while (Integer.parseInt(mensaje) > numeroUsuarios);
@@ -100,10 +99,6 @@ public class Cliente {
                 System.out.println(mensajeServidor);
                 break;
         }
-        /*
-            Envio de opcion
-         */
-
         socketCliente.close();
     }
 

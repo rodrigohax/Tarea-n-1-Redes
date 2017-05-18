@@ -40,7 +40,7 @@ class Servidor extends Thread {
                 listadoUsuarios.add(new Usuario(usuario,password));
                 usuarioLogueado = obtenerUsuario(usuario,password);
             }
-
+  alCliente.println("Bienvenido " +  usuarioLogueado.getNombre() +", su último acceso fue " + usuarioLogueado.getUltimoIngreso());
             alCliente.println("1.- Consultar hora y día actual");
             alCliente.println("2.- Consultar hora u día de la última consulta");
             alCliente.println("3.- Listar seudónimos de los usuarios registrados");
