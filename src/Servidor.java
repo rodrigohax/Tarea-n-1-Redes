@@ -34,13 +34,24 @@ class Servidor extends Thread {
             usuario = delCliente.readLine();
             alCliente.println("Ingrese su contraseña");
             password = delCliente.readLine();
+
             if (buscarUsuario(usuario)) {
-                usuarioLogueado = obtenerUsuario(usuario,password);
-            }else{
-                listadoUsuarios.add(new Usuario(usuario,password));
-                usuarioLogueado = obtenerUsuario(usuario,password);
+                if (verificarPassword(usuario, password)) {
+                    usuarioLogueado = obtenerUsuario(usuario, password);
+                    alCliente.println("Usuario logueado correctamente");
+                } else {
+                    alCliente.println("false");
+                }
+
             }
-  alCliente.println("Bienvenido " +  usuarioLogueado.getNombre() +", su último acceso fue " + usuarioLogueado.getUltimoIngreso());
+
+            if (!buscarUsuario(usuario)) {
+                listadoUsuarios.add(new Usuario(usuario, password));
+                usuarioLogueado = obtenerUsuario(usuario, password);
+                alCliente.println("Usuario registrado correctamente");
+            }
+
+            alCliente.println("Bienvenido " + usuarioLogueado.getNombre() + ", su último acceso fue " + usuarioLogueado.getUltimoIngreso());
             alCliente.println("1.- Consultar hora y día actual");
             alCliente.println("2.- Consultar hora u día de la última consulta");
             alCliente.println("3.- Listar seudónimos de los usuarios registrados");
@@ -102,20 +113,20 @@ class Servidor extends Thread {
                 }
                 alCliente.println("Seleccione el usuario a quien desea enviar el mensaje:");
                 int idUsuario = Integer.parseInt(delCliente.readLine());
-                Usuario receptor = listadoUsuarios.get(idUsuario-1);
+                Usuario receptor = listadoUsuarios.get(idUsuario - 1);
                 alCliente.println("Ingrese el mensaje:");
                 String mensaje = delCliente.readLine();
-                receptor.mensajes.add(new Mensaje(usuarioLogueado,receptor,mensaje));
+                receptor.mensajes.add(new Mensaje(usuarioLogueado, receptor, mensaje));
                 alCliente.println("Mensaje enviado con exito:)");
                 break;
             case "5":
                 int numeroMensajes = usuarioLogueado.mensajes.size();
                 alCliente.println(numeroMensajes);
-                if(numeroMensajes==0){
+                if (numeroMensajes == 0) {
                     alCliente.println("No existen mensajes :(");
-                }else{
+                } else {
                     for (int i = 0; i < numeroMensajes; i++) {
-                        alCliente.println(i+1+") "+ usuarioLogueado.mensajes.get(i).toString());
+                        alCliente.println(i + 1 + ") " + usuarioLogueado.mensajes.get(i).toString());
                     }
                 }
                 break;
@@ -136,7 +147,7 @@ class Servidor extends Thread {
         }
         return false;
     }
-    
+
     public Usuario obtenerUsuario(String nombre, String password) {
         for (Usuario aux : listadoUsuarios) {
             if (nombre.equals(aux.getNombre()) && password.equals(aux.getPassword())) {
@@ -144,5 +155,14 @@ class Servidor extends Thread {
             }
         }
         return null;
+    }
+
+    private boolean verificarPassword(String nombre, String password) {
+        for (Usuario aux : listadoUsuarios) {
+            if (nombre.equals(aux.getNombre()) && password.equals(aux.getPassword())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
