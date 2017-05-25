@@ -10,13 +10,13 @@
  */
 public class Mensaje {
     private Usuario emisor;
-    private Usuario receptor;
+    private String fecha;
     private String mensaje;
 
     public Mensaje(Usuario emisor, Usuario receptor, String mensaje) {
         this.emisor = emisor;
-        this.receptor = receptor;
         this.mensaje = mensaje;
+        this.fecha = Fecha.obtenerHoraYDia();
     }
 
     public Usuario getEmisor() {
@@ -25,14 +25,6 @@ public class Mensaje {
 
     public void setEmisor(Usuario emisor) {
         this.emisor = emisor;
-    }
-
-    public Usuario getReceptor() {
-        return receptor;
-    }
-
-    public void setReceptor(Usuario receptor) {
-        this.receptor = receptor;
     }
 
     public String getMensaje() {
@@ -45,6 +37,6 @@ public class Mensaje {
 
     @Override
     public String toString() {
-        return "Emisor: " + emisor.getNombre() + "\tReceptor: " + receptor.getNombre() + "\tMensaje: " + mensaje;
+        return "Emisor: " + emisor.getNombre() + "\tEnviado: " + fecha + "\tMensaje: " + mensaje;
     }
 }

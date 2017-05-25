@@ -24,33 +24,33 @@ public class Cliente {
         try ( //Creacion de socket para cliente
                 Socket socketCliente = new Socket("localhost", 1337)) {
             System.out.println("Conexion aceptada. " + socketCliente.toString());
-            
+
             //Stream de envio de datos al servidor
             DataOutputStream alServidor = new DataOutputStream(socketCliente.getOutputStream());
-            
+
             //Stream recepcion datos del servidor
             BufferedReader delServidor = new BufferedReader(new InputStreamReader(socketCliente.getInputStream()));
-            
+
             String mensaje;
-            
+
             /*
             *   LEER USUARIO
-            */
+             */
             System.out.println(delServidor.readLine());
             mensaje = teclado.readLine();
             alServidor.writeBytes(mensaje + "\n");
             /*
             LEER PASSWORD
-            */
+             */
             System.out.println(delServidor.readLine());
             mensaje = teclado.readLine();
             alServidor.writeBytes(mensaje + "\n");
-            
+
             /*
             RECIBIR MENSAJE DE BIENVENIDA
-            */
+             */
             String msg = delServidor.readLine();
-            if(msg.equalsIgnoreCase("false")){
+            if (msg.equalsIgnoreCase("false")) {
                 System.out.println("Contraseña incorrecta");
                 System.exit(0);
             }
@@ -58,7 +58,7 @@ public class Cliente {
             System.out.println(delServidor.readLine());
             /*
             *   LEER OPCIONES
-            */
+             */
             recibirMenuOpciones(delServidor);
             mensaje = teclado.readLine();
             alServidor.writeBytes(mensaje + "\n");
@@ -79,9 +79,9 @@ public class Cliente {
                     do {
                         mensaje = teclado.readLine();
                     } while (Integer.parseInt(mensaje) > numeroUsuarios);
-                    
+
                     alServidor.writeBytes(mensaje + "\n");
-                    
+
                     System.out.println(delServidor.readLine());
                     mensaje = teclado.readLine();
                     alServidor.writeBytes(mensaje + "\n");
@@ -95,6 +95,14 @@ public class Cliente {
                         for (int i = 0; i < numeroMensajes; i++) {
                             System.out.println(delServidor.readLine());
                         }
+                        System.out.println(delServidor.readLine());
+                        System.out.println(delServidor.readLine());
+                        do {
+                            mensaje = teclado.readLine();
+                        } while (!(mensaje.equalsIgnoreCase("S")
+                                || mensaje.equalsIgnoreCase("N")));
+                        alServidor.writeBytes(mensaje + "\n");
+
                     }
                     break;
                 case "7":

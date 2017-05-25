@@ -128,6 +128,13 @@ class Servidor extends Thread {
                     for (int i = 0; i < numeroMensajes; i++) {
                         alCliente.println(i + 1 + ") " + usuarioLogueado.mensajes.get(i).toString());
                     }
+                    alCliente.println("¿Desea sus mensajes eliminados?");
+                    alCliente.println("Si = S || No = N");
+                    String resp;
+                    resp = delCliente.readLine();
+                    if (resp.equalsIgnoreCase("S")) {
+                        usuarioLogueado.mensajes.clear();
+                    }
                 }
                 break;
             case "6":
